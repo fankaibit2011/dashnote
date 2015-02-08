@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<style type="text/css">
+		@import "Dashnote.css";
+	</style>
+	<script type='text/javascript' src="Dashnote.js"></script>
+	<script type='text/javascript' src='localizedStrings.js' charset='utf-8'></script>
+	<script type="text/javascript" src="file:///System/Library/WidgetResources/AppleClasses/AppleAnimator.js" charset="utf-8"></script>
+	<script type="text/javascript" src="file:///System/Library/WidgetResources/AppleClasses/AppleButton.js" charset="utf-8"></script>
+	<script type="text/javascript" src="file:///System/Library/WidgetResources/AppleClasses/AppleInfoButton.js" charset="utf-8"></script>
+</head>
+<body onload="load();" onunload="unload();">
+<div id="practiceDiv"></div>
+<div id="front">
+	<img src='Images/yellow.png' id='frontImg' role="presentation" alt="" />
+	<img src="Images/notallowed.png" id="dont" role="presentation" alt="" />
+	<div id="myDiv" tabindex="0" role="textbox" aria-multiline="true" contentEditable="true" onkeydown="handleTyping(event);" onkeyup="handleKeyUp(event);" onpaste="handlePaste(event);"></div>
+	<div id="guard" onkeyup="moveCaretToEnd();"></div>
+	<div id="infoButton"></div>
+</div> 
+<div id="config">
+	<img src='Images/orange.png' id='configImg' role="presentation" alt="" />
+	<div id="evernoteConfig" class="configLabel">Evernote Config</div>
+	<div id="confirmButton"></div>
+	<div id="skipButton"></div>
+</div> 
+<div id="back">
+	<div id="papercolor" class="label">Paper Color:</div>
+	<img src="Images/backside.png" usemap="#backsidemap" id="backImg" alt="" width="225" height="206">
+	<map name="backsidemap" aria-labelledby="papercolor" role="radiogroup">
+		<area role="radio" shape="rect" tabindex="0" alt="" href="#" aria-checked="true"  coords="19,28,46,52"   id="yellow"  onclick="clickoncolor(event, 'Images/yellow.png'); return false;">
+		<area role="radio" shape="rect" tabindex="0" alt="" href="#" aria-checked="false" coords="58,28,85,52"   id="orange"  onclick="clickoncolor(event, 'Images/orange.png'); return false;">
+		<area role="radio" shape="rect" tabindex="0" alt="" href="#" aria-checked="false" coords="97,28,124,52"  id="green"   onclick="clickoncolor(event, 'Images/green.png'); return false;">
+		<area role="radio" shape="rect" tabindex="0" alt="" href="#" aria-checked="false" coords="136,28,163,52" id="green2"  onclick="clickoncolor(event, 'Images/green2.png'); return false;">
+		<area role="radio" shape="rect" tabindex="0" alt="" href="#" aria-checked="false" coords="175,28,202,52" id="blue2"   onclick="clickoncolor(event, 'Images/blue2.png'); return false;">
+		<area role="radio" shape="rect" tabindex="0" alt="" href="#" aria-checked="false" coords="19,60,46,84"   id="blue"    onclick="clickoncolor(event, 'Images/blue.png'); return false;">
+		<area role="radio" shape="rect" tabindex="0" alt="" href="#" aria-checked="false" coords="58,60,85,84"   id="purple1" onclick="clickoncolor(event, 'Images/purple1.png'); return false;">
+		<area role="radio" shape="rect" tabindex="0" alt="" href="#" aria-checked="false" coords="97,60,124,84"  id="pink"    onclick="clickoncolor(event, 'Images/pink.png'); return false;">
+		<area role="radio" shape="rect" tabindex="0" alt="" href="#" aria-checked="false" coords="136,60,163,84" id="white"   onclick="clickoncolor(event, 'Images/white.png'); return false;">
+		<area role="radio" shape="rect" tabindex="0" alt="" href="#" aria-checked="false" coords="175,60,202,84" id="grey"    onclick="clickoncolor(event, 'Images/grey.png'); return false;">
+	</map>
+	<div id='font' class='label'><label id='font-label' for="font-popup">Font:</label></div>
+	<select id='font-popup' class='popup' onchange='fontchanged(this);'>
+		<option value='MarkerFelt-Thin'>Marker Felt</option>
+		<option value='Helvetica'>Helvetica</option>
+		<option value='Lucida Grande'>Lucida Grande</option>
+		<option value='Futura'>Futura</option>
+		<option value='Optima'>Optima</option>
+		<option value='Gill Sans'>Gill Sans</option>
+		<option value='Baskerville'>Baskerville</option>
+		<option value ="American Typewriter">American Typewriter</option>
+	</select>
+	<select id='size-popup' class='popup' onchange='sizechanged(this);'>
+		<option value='Auto'>Auto</option>
+		<hr>
+		<option value='10px'>10</option>
+		<option value='11px'>11</option>
+		<option value='12px'>12</option>
+		<option value='13px'>13</option>
+		<option value='14px'>14</option>
+		<option value='16px'>16</option>
+		<option value='18px'>18</option>
+	</select>
+	<img id='check' src='Images/check.png' width='27' height='24' role="presentation" alt="" />
+	<div id="doneButton"><!-- done button accessibility handled by shared AppleButton class --></div>
+</div>
+</body>
+</html>
