@@ -46,6 +46,8 @@ function load() {
 	pdiv.setAttribute('aria-hidden', 'true'); // so VoiceOver doesn't get duplicate contenteditable areas
 
 	localizeUI();
+
+	uuid = getUID();
 	loadData();
 }
 
@@ -73,6 +75,8 @@ function onremove() {
 if (window.widget) {
 	widget.onremove = onremove;
 	widget.onsync = onsync;
+	widget.onshow = onshow;
+	widget.onhide = onhide;
 }
 
 function $(id) {
@@ -715,6 +719,9 @@ function localizeUI() {
 	} catch(ex) {}	
 }
 
+var uuid;
+var firstApply = "true";
+
 var kTokenKey  = "token";
 var kGuidKey  = "guid";
 
@@ -804,7 +811,7 @@ function showConfigSide(event) {
 	if (window.widget)
 	{		
 		setTimeout ('widget.performTransition();', 0);
-		widget.openURL(host + "/auth/evernote");
+		widget.openURL(host + "/web/getAuth.php?uuid=" + escape(uuid) + "&firstApply=" + escape(firstApply));
 	}
 }
 
@@ -893,7 +900,7 @@ function abortFetchDataIfNeeded()
 
 function fetchGetConfigData()
 {
-    var url = host + '/interface/getConfig.php';
+    var url = host + '/interface/getConfig.php?uuid=' + escape(uuid);
 
     abortFetchDataIfNeeded();
     lastXMLRequest = fetchEvernoteData (url, getConfigDataFetched);
@@ -1027,7 +1034,24 @@ function getConfigProc(obj) {
 
 	var token = obj.token;
 	var guid = obj.guid;
+	firstApply = "false";
 	setInstanceAndGlobalPreferenceForKey(token, kTokenKey);
 	setInstanceAndGlobalPreferenceForKey(guid, kGuidKey);
 	showfrontside(null);
+}
+
+function onshow() {
+	var front = $("front");
+	if (front.style.display != "none")
+	{
+		loadData();
+	}
+}
+
+function onhide() {
+	var front = $("front");
+	if (front.style.display != "none")
+	{
+		saveSticky();
+	}
 }
