@@ -1004,6 +1004,9 @@ function getNoteProc(obj) {
 	var newdata = "";
 	for (i = 0; i < strs.length; i++)
 	{
+		if (strs[i].match("^[ ]*$"))
+			continue;
+
 		newdata += "<div>" + strs[i] + "</div>";
 	}
 	loadFrontSide(newdata);
