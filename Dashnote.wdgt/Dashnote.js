@@ -1004,7 +1004,7 @@ function getNoteProc(obj) {
 	var newdata = "";
 	for (i = 0; i < strs.length; i++)
 	{
-		if (strs[i].match("^[ ]*$"))
+		if (strs[i].match("^[ \t]*$"))
 			continue;
 
 		newdata += "<div>" + strs[i] + "</div>";
